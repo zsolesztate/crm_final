@@ -45,7 +45,6 @@
                 </div>
             </form>
         </div>
-        {{ user }}
         </div>
     <vue3-snackbar bottom right :duration="4000"></vue3-snackbar>
 </template>

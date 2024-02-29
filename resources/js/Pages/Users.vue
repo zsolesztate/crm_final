@@ -65,7 +65,6 @@
                         </tr>
                     </template>
                 </table-skeleton>
-
             </div>
         </div>
     </div>

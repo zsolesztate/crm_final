@@ -12,6 +12,8 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
+
+    //TODO a jogokat be kell állítani majd
     public function index()
     {
         return Inertia::render('Users',[

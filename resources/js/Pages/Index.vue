@@ -1,11 +1,4 @@
 <template>
-<<<<<<< Updated upstream
-    <div class="bg-indigo-600 text-red-900">
-        hello
-    </div>
-
-</template>
-=======
     <div class="bg-white">
         <Navbar :userCanModify="userCanModify.can_modify" />
         <div class="relative isolate px-6 pt-14 lg:px-8">
@@ -41,4 +34,3 @@ import {defineProps} from "vue";
 const { userCanModify } = defineProps(['userCanModify']);
 
 </script>
->>>>>>> Stashed changes
