@@ -18,7 +18,7 @@ class StorePartnerRequest extends FormRequest
             'name' => ['required','string','max:255'],
             'company_name' => ['required','string','max:255','unique:partners'],
             'email' => ['required','email','unique:partners','min:10','max:255'],
-            'coworkers' => ['nullable', 'array'],
+            'users' => ['nullable', 'array'],
         ];
     }
 }

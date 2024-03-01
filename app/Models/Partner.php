@@ -13,8 +13,8 @@ class Partner extends Model
 
     public $timestamps = false;
 
-    public function coworkers()
+    public function users()
     {
-        return $this->belongsToMany(CoWorker::class, 'co_workers_partners');
+        return $this->belongsToMany(User::class, 'users_partners');
     }
 }

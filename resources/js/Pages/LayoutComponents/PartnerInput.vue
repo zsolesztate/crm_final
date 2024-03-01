@@ -45,17 +45,17 @@
                             </svg>
                         </button>
                         <div v-show="show" @click.stop id="dropdown-menu" class=" origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                            <div v-if="allCoworkers.length > 0 "  class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
-                               <div v-for="(coworker,index) in allCoworkers" :key="index">
-                                   <div @click="selectCoworker(index,coworker)"  class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">{{coworker.name}}</div>
+                            <div v-if="allUsers.length > 0 "  class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
+                               <div v-for="(user,index) in allUsers" :key="index">
+                                   <div @click="selectUser(index,user)"  class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">{{user.name}}</div>
                                </div>
                             </div>
                         </div>
                         <label for="coworkers" class="block text-sm mt-3.5 font-semibold leading-6 text-gray-900">Kiválasztott munkatársak:</label>
                         <div class="flex flex-wrap gap-x-4 sm:col-span-2 z-30 mt-3 justify-center">
-                            <div v-for="(selectedCoworker,index) in selectedCoworkers" :key="index" class="flex-shrink-0">
-                                <button @click.prevent="removeCoworker(index,selectedCoworker)" class="text-sm text-white text-center px-3.5 py-2.5 flex h-6 items-center rounded-md bg-indigo-400 p-3">
-                                    {{ selectedCoworker.name }}
+                            <div v-for="(selectedUser,index) in selectedUsers" :key="index" class="flex-shrink-0">
+                                <button @click.prevent="removeUser(index,selectedUser)" class="text-sm text-white text-center px-3.5 py-2.5 flex h-6 items-center rounded-md bg-indigo-400 p-3">
+                                    {{ selectedUser.name }}
                                     <span class="ml-3 text-indigo-950">X</span>
                                 </button>
                             </div>
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="mt-10">
-                <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Felhasználó mentése</button>
+                <button type="submit" :disabled="form.processing" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Felhasználó mentése</button>
                 <button @click="closeField" type="button" class="mt-3.5 block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Mégse</button>
             </div>
         </form>
@@ -76,10 +76,10 @@ import { useForm } from '@inertiajs/vue3';
 import {useSnackbar, Vue3Snackbar} from "vue3-snackbar";
 import {defineEmits, defineProps, ref} from 'vue'
 
-const {coworkers} = defineProps(['coworkers']);
+const {users} = defineProps(['users']);
 
-const selectedCoworkers = ref([]);
-const allCoworkers = ref(coworkers);
+const selectedUsers = ref([]);
+const allUsers = ref(users);
 
 const emits = defineEmits(['hide']);
 const snackbar = useSnackbar();
@@ -89,7 +89,7 @@ const form = useForm({
     name: '',
     company_name:'',
     email:'',
-    coworkers:[],
+    users:[],
 });
 
 const closeField = () => {
@@ -98,7 +98,7 @@ const closeField = () => {
 };
 
 const submit = () => {
-    form.coworkers = selectedCoworkers.value;
+    form.users = selectedUsers.value;
     console.log(form)
     form.post('/partners',{
         onSuccess: () => {
@@ -119,14 +119,14 @@ const showDropdown = () => {
     show.value = !show.value
 }
 
-const selectCoworker = (index,coworker) => {
-    allCoworkers.value.splice(index, 1);
-    selectedCoworkers.value.push(coworker);
+const selectUser = (index,user) => {
+    allUsers.value.splice(index, 1);
+    selectedUsers.value.push(user);
 }
 
-const removeCoworker = (index,coworker) => {
-    selectedCoworkers.value.splice(index, 1);
-    allCoworkers.value.push(coworker);
+const removeUser = (index,user) => {
+    selectedUsers.value.splice(index, 1);
+    allUsers.value.push(user);
     show.value = false
 }
 </script>

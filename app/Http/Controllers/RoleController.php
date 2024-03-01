@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
@@ -14,6 +15,8 @@ class RoleController extends Controller
 {
     public function index()
     {
+        Gate::authorize('view roles');
+
         $all_users_with_all_their_roles = User::with('roles:name')->get();
 
         return Inertia::render('Roles',[
@@ -24,17 +27,18 @@ class RoleController extends Controller
 
     public function store(StoreRoleRequest $request): RedirectResponse
     {
-        if (Auth::user()->can('add roles')) {
-            Role::query()->create($request->validated());
+        Gate::authorize('add roles');
 
-            return redirect('/roles');
-        }else {
-            return response()->json(['success' => false, 'message' => 'Felhasználó vagy szerepkör nem található']);
-        }
+        Role::query()->create($request->validated());
+
+        return redirect('/roles');
+
     }
 
     public function update(StoreRoleRequest $request,Role $role): RedirectResponse
     {
+        Gate::authorize('edit roles');
+
         $role->update($request->validated());
 
         return redirect('/roles');
@@ -42,6 +46,8 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
+        Gate::authorize('delete roles');
+
         try {
             if ($role->users()->exists()) {
                 return redirect()->back()->withErrors('A szerepkör nem törölhető, mert hozzárendelt felhasználók vannak.');
@@ -50,6 +56,7 @@ class RoleController extends Controller
 
             return redirect('/roles')->withSuccess('A szerepkör sikeresen törölve.');
         } catch (ModelNotFoundException $e) {
+
             return back()->withError('A szerepkör nem található.');
         }
     }
@@ -63,8 +70,6 @@ class RoleController extends Controller
 
                 return redirect('/roles');
 
-            } else {
-                return response()->json(['success' => false, 'message' => 'Felhasználó vagy szerepkör nem található']);
             }
         }
     }

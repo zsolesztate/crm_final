@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white">
-        <Navbar :userCanModify="userCanModify.can_modify"/>
+        <Navbar :userCanModify="userPermissions"/>
         <div class="mt-20 block text-center">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900">Partnerek</h1>
             <div class="mt-10 flex flex-col items-center justify-center gap-y-6 sm:gap-y-0 sm:flex-row sm:justify-center sm:gap-x-6">
@@ -8,8 +8,8 @@
                 <button type="button" @click="showPartnerAddField" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lenyit</button>
             </div>
         </div>
-        <PartnerInput v-if="partnerInputShow" @hide="hideAddPartner" :coworkers="coworkers"/>
-        <PartnerEditInput v-if="partnerEditShow" :partner="partnerEditObject" @hide="editPartner" :coworkers="coworkers"/>
+        <PartnerInput v-if="partnerInputShow" @hide="hideAddPartner" :users="users"/>
+        <PartnerEditInput v-if="partnerEditShow" :partner="partnerEditObject" @hide="editPartner" :users="users"/>
         <div class="relative mt-10 isolate px-6 pt-14 lg:px-8">
             <SearchBar :searchedText="searchedText" :errors="errors" />
             <div class="mx-auto">
@@ -81,7 +81,7 @@ import SearchBar from "./LayoutComponents/SearchBar.vue";
 import {defineProps,ref} from "vue";
 import {Vue3Snackbar} from "vue3-snackbar";
 
-const {partners,userCanModify,coworkers} = defineProps(['partners','userCanModify','coworkers']);
+const {partners,userPermissions,users} = defineProps(['partners','userPermissions','users']);
 
 
 const partnerInputShow = ref(false);

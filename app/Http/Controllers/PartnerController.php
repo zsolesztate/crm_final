@@ -4,24 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePartnerRequest;
 use App\Http\Requests\UpdatePartnerRequest;
-use App\Models\CoWorker;
 use App\Models\Partner;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class PartnerController extends Controller
 {
+
     public function index()
     {
+        $user = Auth::user();
+
+        if ($user->can('view partners')) {
+            $partners = Partner::with('users')->get();
+            $users = User::all();
+        } else {
+            $partners = $user->partners()->with('users')->get();
+            $users = null;
+        }
+
         return Inertia::render('Partners',[
-            'partners' => Partner::with('coworkers')->get(),
-            'coworkers' => CoWorker::all()
+            'partners' => $partners,
+            'users' => $users
         ]);
+
     }
 
     public function store(StorePartnerRequest $request): RedirectResponse
     {
+        Gate::authorize('create partner');
+
         $validatedData = $request->validated();
 
         $partner = Partner::create([
@@ -30,10 +45,10 @@ class PartnerController extends Controller
             'email' => $validatedData['email'],
         ]);
 
-        foreach ($validatedData['coworkers'] as $coworker) {
-            $coworker = CoWorker::find($coworker['id']);
-            if ($coworker) {
-                $partner->coworkers()->attach($coworker['id']);
+        foreach ($validatedData['users'] as $user) {
+            $user = User::find($user['id']);
+            if ($user) {
+                $partner->users()->attach($user['id']);
             }
         }
 
@@ -42,6 +57,8 @@ class PartnerController extends Controller
 
     public function destroy(Partner $partner): RedirectResponse
     {
+        Gate::authorize('delete partner');
+
         $partner->delete();
 
         return redirect('/partners');
@@ -50,6 +67,8 @@ class PartnerController extends Controller
 
     public function update(UpdatePartnerRequest $request,Partner $partner): RedirectResponse
     {
+        Gate::authorize('edit partner');
+
         $validatedData = $request->validated();
 
         $partner->update([
@@ -58,12 +77,12 @@ class PartnerController extends Controller
             'email' => $validatedData['email'],
         ]);
 
-        $partner->coworkers()->sync([]);
+        $partner->users()->sync([]);
 
-        foreach ($validatedData['coworkers'] as $coworker) {
-            $coworker = CoWorker::find($coworker['id']);
-            if ($coworker) {
-                $partner->coworkers()->attach($coworker['id']);
+        foreach ($validatedData['users'] as $user) {
+            $user = User::find($user['id']);
+            if ($user) {
+                $partner->users()->attach($user['id']);
             }
         }
 

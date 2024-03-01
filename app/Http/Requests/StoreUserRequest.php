@@ -24,6 +24,8 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => ['required','string','max:255'],
             'email' => ['required','email','unique:users','email','min:10','max:255'],
+            'phone' => ['required', 'string', 'max:255', 'regex:/^[+\/\-\s\d]+$/'],
+            'position' => ['required','string','max:255'],
             'password' => ['required','string','min:8'],
             'active_status' =>['required','boolean'],
             'can_modify' =>['required','boolean'],

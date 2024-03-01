@@ -11,17 +11,14 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
     protected $guarded = [];
+
+    public $timestamps = false;
 
 
     protected $hidden = [
@@ -36,17 +33,28 @@ class User extends Authenticatable
     ];
 
 
-    protected static function boot()
+    protected static function booted()
     {
-        parent::boot();
-
         static::created(function ($user) {
-            $user->assignRole('notconfirmed');
+            if (User::count() === 1) {
+                $user->assignRole('admin');
+                $user->active_status = true;
+                $user->can_modify = true;
+                $user->save();
+            } else {
+                $user->assignRole('notconfirmed');
+            }
         });
+
     }
 
     public function role()
     {
         return $this->hasOne(Role::class)->without('pivot');
+    }
+
+    public function partners()
+    {
+        return $this->belongsToMany(Partner::class, 'users_partners');
     }
 }

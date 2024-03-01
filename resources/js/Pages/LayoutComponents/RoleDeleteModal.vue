@@ -48,7 +48,7 @@ const deleteUser = (modalRoleId) => {
         onError: (errors) => {
             snackbar.add({
                 type: 'error',
-                text: errors
+                text: errors[0]
             })
             closeModal();
         },

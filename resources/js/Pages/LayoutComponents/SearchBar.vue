@@ -58,7 +58,7 @@ const searchData = ref({
 let searchTimeout = null;
 
 const deleteSearch = () => {
-    const url = `/coworkers`;
+    const url = `/users`;
     router.get(url);
 }
 
@@ -69,7 +69,7 @@ const startSearch = () => {
     searchTimeout = setTimeout(() => {
         const Text = searchData.value.text.toLowerCase();
         const type = 'search';
-        const url = `/coworkers/${type}?search=${Text}`;
+        const url = `/users/${type}?search=${Text}`;
         router.get(url);
     }, 2000);
 };

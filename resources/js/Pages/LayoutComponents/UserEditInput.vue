@@ -11,7 +11,7 @@
                 <div>
                     <label for="username" class="block text-sm font-semibold leading-6 text-gray-900">Név</label>
                     <div class="mt-2.5">
-                        <input v-model="form.name" type="text" name="username" id="username" autocomplete="given-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input v-model="form.name" type="text" name="username" id="username"  class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                     <div v-if=form.errors.name class="block mt-1.5 ml-1 text-sm font-semibold leading-6 text-rose-500">
                         {{form.errors.name }}
@@ -20,10 +20,28 @@
                 <div>
                     <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email cím</label>
                     <div class="mt-2.5">
-                        <input v-model="form.email" type="email" name="email" id="email" autocomplete="family-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                        <input v-model="form.email" type="email" name="email" id="email"  class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                     <div v-if=form.errors.email class="block mt-1.5 ml-1 text-sm font-semibold leading-6 text-rose-500">
                         {{form.errors.email }}
+                    </div>
+                </div>
+                <div>
+                    <label for="username" class="block text-sm font-semibold leading-6 text-gray-900">Telefonszám</label>
+                    <div class="mt-2.5">
+                        <input v-model="form.phone" type="text" name="phone" id="phone" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <div v-if=form.errors.phone class="block mt-1.5 ml-1 text-sm font-semibold leading-6 text-rose-500">
+                        {{form.errors.phone }}
+                    </div>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Beosztás</label>
+                    <div class="mt-2.5">
+                        <input v-model="form.position" type="text" name="position" id="position"  class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <div v-if=form.errors.position class="block mt-1.5 ml-1 text-sm font-semibold leading-6 text-rose-500">
+                        {{form.errors.position }}
                     </div>
                 </div>
                 <div class="sm:col-span-2">
@@ -51,9 +69,8 @@
                 </div>
             </div>
             <div class="mt-10">
-                <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adatok módosítása</button>
+                <button type="submit" :disabled="form.processing" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Adatok módosítása</button>
                 <button type="button" @click="hideField" class="mt-3.5 block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Mégse</button>
-
             </div>
         </form>
     </div>
@@ -79,6 +96,8 @@ const form = useForm({
     name: user.name,
     email:user.email,
     password:user.password,
+    phone:user.phone,
+    position:user.position,
     active_status:user.active_status,
     can_modify:user.can_modify
 });

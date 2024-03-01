@@ -19,7 +19,7 @@ class UpdatePartnerRequest extends FormRequest
             'name' => ['required','string','max:255'],
             'company_name' => ['required','string','max:255',Rule::unique('partners')->ignore($this->partner->id)],
             'email' => ['required','email','min:10','max:255',Rule::unique('partners')->ignore($this->partner->id)],
-            'coworkers' => ['nullable', 'array'],
+            'users' => ['nullable', 'array'],
         ];
     }
 }

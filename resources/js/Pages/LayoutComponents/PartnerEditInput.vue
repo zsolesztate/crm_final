@@ -45,17 +45,17 @@
                             </svg>
                         </button>
                         <div v-show="show" @click.stop id="dropdown-menu" class=" origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                            <div v-if="nonSelectedCoworkersRef.length > 0"  class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
-                                <div v-for="(nonSelectedCoworker,index) in nonSelectedCoworkersRef" :key="index">
-                                    <div @click="selectCoworker(index,nonSelectedCoworker)"  class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">{{nonSelectedCoworker.name}}</div>
+                            <div v-if="nonSelectedUsersRef.length > 0"  class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
+                                <div v-for="(nonSelectedUser,index) in nonSelectedUsersRef" :key="index">
+                                    <div @click="selectUser(index,nonSelectedUser)"  class="block px-4 py-2 mb-1 text-sm text-gray-700 rounded-md bg-white hover:bg-gray-100" role="menuitem">{{nonSelectedUser.name}}</div>
                                 </div>
                             </div>
                         </div>
                         <label for="coworkers" class="block text-sm mt-3.5 font-semibold leading-6 text-gray-900">Kiválasztott munkatársak:</label>
                         <div class="flex flex-wrap gap-x-4 sm:col-span-2 z-30 mt-3 justify-center">
-                            <div v-for="(coworker, index) in selectedCoworkersRef" :key="index" class="flex-shrink-0">
-                                <button @click.prevent="removeCoworker(index, coworker)" class="mt-3.5 text-sm text-white text-center px-3.5 py-2.5 flex h-6 items-center rounded-md bg-indigo-400 p-3">
-                                    {{ coworker.name }}
+                            <div v-for="(user, index) in selectedUsersRef" :key="index" class="flex-shrink-0">
+                                <button @click.prevent="removeUser(index, user)" class="mt-3.5 text-sm text-white text-center px-3.5 py-2.5 flex h-6 items-center rounded-md bg-indigo-400 p-3">
+                                    {{ user.name }}
                                     <span class="ml-3 text-indigo-950">X</span>
                                 </button>
                             </div>
@@ -65,7 +65,7 @@
             </div>
             <div class="mt-10">
                 <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Felhasználó mentése</button>
-                <button @click="closeField" type="button" class="mt-3.5 block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Mégse</button>
+                <button @click="closeField" type="button" :disabled="form.processing" class="mt-3.5 block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Mégse</button>
             </div>
         </form>
     </div>
@@ -76,19 +76,19 @@ import { useForm } from '@inertiajs/vue3';
 import {useSnackbar, Vue3Snackbar} from "vue3-snackbar";
 import {defineEmits, defineProps, ref, computed,watchEffect} from 'vue'
 
-const {partner,coworkers} = defineProps(['partner','coworkers']);
+const {partner,users} = defineProps(['partner','users']);
 
-const selectedCoworkerIds = computed(() => partner.coworkers.map(coworker => coworker.id));
+const selectedUserIds = computed(() => partner.users.map(user => user.id));
 
-const nonSelectedCoworkersRef = ref('');
-const selectedCoworkersRef = ref(partner.coworkers);
+const nonSelectedUsersRef = ref('');
+const selectedUsersRef = ref(partner.users);
 
-const nonSelectedCoworkers = computed(() => {
-    return coworkers.filter(coworker => !selectedCoworkerIds.value.includes(coworker.id));
+const nonSelectedUsers = computed(() => {
+    return users.filter(user => !selectedUserIds.value.includes(user.id));
 });
 
 watchEffect(() => {
-    nonSelectedCoworkersRef.value = nonSelectedCoworkers.value;
+    nonSelectedUsersRef.value = nonSelectedUsers.value;
 });
 const emits = defineEmits(['hide']);
 const snackbar = useSnackbar();
@@ -99,7 +99,7 @@ const form = useForm({
     name: partner.name,
     company_name:partner.company_name,
     email:partner.email,
-    coworkers:[],
+    users:[],
 });
 
 const closeField = () => {
@@ -108,8 +108,7 @@ const closeField = () => {
 };
 
 const submit = () => {
-    form.coworkers = selectedCoworkersRef.value;
-    console.log(form)
+    form.users = selectedUsersRef.value;
     form.post(`/partners/${partner.id}`,{
         onSuccess: () => {
             snackbar.add({
@@ -129,14 +128,14 @@ const showDropdown = () => {
     show.value = !show.value
 }
 
-const selectCoworker = (index,coworker) => {
-    nonSelectedCoworkersRef.value.splice(index, 1);
-    selectedCoworkersRef.value.push(coworker);
+const selectUser = (index,user) => {
+    nonSelectedUsersRef.value.splice(index, 1);
+    selectedUsersRef.value.push(user);
 }
 
-const removeCoworker = (index,coworker) => {
-    selectedCoworkersRef.value.splice(index, 1);
-    nonSelectedCoworkersRef.value.push(coworker);
+const removeUser = (index,user) => {
+    selectedUsersRef.value.splice(index, 1);
+    nonSelectedUsersRef.value.push(user);
     show.value = false
 }
 </script>

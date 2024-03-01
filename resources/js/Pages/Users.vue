@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white">
-    <Navbar :userCanModify="userCanModify.can_modify"/>
+    <Navbar :userCanModify="userPermissions"/>
         <div class="mt-20 block text-center">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900">Felhasználók</h1>
             <div class="mt-10 flex flex-col items-center justify-center gap-y-6 sm:gap-y-0 sm:flex-row sm:justify-center sm:gap-x-6">
@@ -11,6 +11,7 @@
         <UserInput v-if="userInputShow" @hide="hideAddUser"/>
         <UserEditInput v-if="userEditShow" :user="userEditObject" @hide="editUser"/>
         <div class="relative mt-10 isolate px-6 pt-14 lg:px-8">
+            <SearchBar :searchedText="searchedText" :errors="errors" />
             <div class="mx-auto">
                 <table-skeleton>
                     <template v-slot:thead>
@@ -83,19 +84,20 @@ import UserInput from "./LayoutComponents/UserInput.vue";
 import UserEditInput from "./LayoutComponents/UserEditInput.vue";
 import UserDeleteModal from "./LayoutComponents/UserDeleteModal.vue";
 import {Vue3Snackbar} from "vue3-snackbar";
+import SearchBar from "./LayoutComponents/SearchBar.vue";
 
-const {users,userCanModify} = defineProps(['users','userCanModify']);
+const {users,userPermissions,errors,searchedText} = defineProps(['users','userPermissions','errors','searchedText']);
 const userInputShow = ref(false);
 
 const userEditShow = ref(false);
 const userEditObject = ref('');
 const isActive = (activeStatus) => {
-    return activeStatus ? 'Nem' : 'Igen';
+    return activeStatus ? 'Aktív' : 'Inaktív';
 };
 
 //todo ugyanaz a két függvény
 const canModify = (can) => {
-    return can ? 'Nem' : 'Igen';
+    return can ? 'Igen' : 'Nem';
 };
 
 const showUserAddField = () => {

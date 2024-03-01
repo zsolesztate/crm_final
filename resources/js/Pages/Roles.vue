@@ -1,5 +1,5 @@
 <template>
-    <Navbar :userCanModify="userCanModify.can_modify" />
+    <Navbar :userCanModify="userPermissions" />
     <div class="mt-20 block text-center">
         <h1 class="text-4xl font-bold tracking-tight text-gray-900">Felhasználók és csoportok</h1>
     </div>
@@ -119,7 +119,7 @@ import RoleEditImput from "./LayoutComponents/RoleEditInput.vue";
 import RoleDeleteModal from "./LayoutComponents/RoleDeleteModal.vue";
 import UserDeleteModal from "./LayoutComponents/UserDeleteModal.vue";
 
-const { users, roles,userCanModify } = defineProps(["users", "roles","userCanModify"]);
+const { users, roles,userPermissions } = defineProps(["users", "roles","userPermissions"]);
 const snackbar = useSnackbar();
 
 const showDropdown = ref(false);

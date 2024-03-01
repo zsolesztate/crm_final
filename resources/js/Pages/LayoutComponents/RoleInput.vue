@@ -15,16 +15,14 @@
                 </div>
             </div>
             <div class="mt-10">
-                <button type="submit" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Mentés</button>
+                <button type="submit" :disabled="form.processing" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Mentés</button>
                 <button @click="closeField" type="button" class="mt-3.5 block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Mégse</button>
             </div>
         </form>
-
-    <vue3-snackbar bottom right :duration="4000"></vue3-snackbar>
 </template>
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import {useSnackbar, Vue3Snackbar} from "vue3-snackbar";
+import {useSnackbar} from "vue3-snackbar";
 import {defineEmits} from 'vue'
 
 const emits = defineEmits(['hide']);
@@ -44,7 +42,7 @@ const submit = () => {
         onSuccess: () => {
             snackbar.add({
                 type: 'success',
-                text: 'Felhasználó feltöltve'
+                text: 'Csoport hozzáadva'
             })
             form.reset();
             closeField();
