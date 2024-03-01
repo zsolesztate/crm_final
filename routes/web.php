@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CoWorkerController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -39,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/coworkers', CoworkerController::class)->except(['index', 'show']);
 
     Route::get('/coworkers/{type?}', [CoworkerController::class, 'index'])->name('coworkers.index');
+
+    Route::resource('/partners', PartnerController::class);
 
 
 });

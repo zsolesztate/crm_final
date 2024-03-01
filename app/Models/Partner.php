@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CoWorker extends Model
+class Partner extends Model
 {
     use HasFactory;
 
@@ -13,8 +13,8 @@ class CoWorker extends Model
 
     public $timestamps = false;
 
-    public function partners()
+    public function coworkers()
     {
-        return $this->belongsToMany(Partner::class, 'co_workers_partners');
+        return $this->belongsToMany(CoWorker::class, 'co_workers_partners');
     }
 }

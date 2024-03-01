@@ -19,6 +19,7 @@
                 <Link href="/users" class="text-sm font-semibold hover:text-indigo-500 leading-6 text-gray-900">Felhasználók szerkesztése</Link>
                 <Link href="/roles" class="text-sm font-semibold hover:text-indigo-500 leading-6 text-gray-900">Jogosultságok kezelése</Link>
                 <Link href="/coworkers" class="text-sm font-semibold hover:text-indigo-500 leading-6 text-gray-900">Munkatársak kezelése</Link>
+                <Link href="/partners" class="text-sm font-semibold hover:text-indigo-500 leading-6 text-gray-900">Partnerek kezelése</Link>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-1">

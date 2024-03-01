@@ -44,6 +44,7 @@ class CoWorkerController extends Controller
 
     public function store(StoreCoWorkerRequest $request): RedirectResponse
     {
+
         CoWorker::query()->create($request->validated());
 
         return redirect('/coworkers');

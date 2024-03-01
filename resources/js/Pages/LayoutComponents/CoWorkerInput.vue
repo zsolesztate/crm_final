@@ -74,6 +74,7 @@ const closeField = () => {
 };
 
 const submit = () => {
+    console.log(form)
     form.post('/coworkers',{
         onSuccess: () => {
             snackbar.add({
