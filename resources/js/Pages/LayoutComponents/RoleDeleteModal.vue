@@ -40,7 +40,7 @@ const deleteUser = (modalRoleId) => {
     router.delete(`/roles/${modalRoleId}/`, {
         onSuccess: () => {
             snackbar.add({
-                type: 'error',
+                type: 'success',
                 text: 'Csoport sikeresen törölve'
             })
             closeModal();

@@ -27,7 +27,7 @@
 
                             </div>
                             <div class="text-sm">
-                                <Link href="/forgot-password" class="font-semibold text-indigo-600 hover:text-indigo-500">Új jelszó</Link>
+                                <Link href="/forgot-password" class="font-semibold text-indigo-600 hover:text-indigo-500">Elfelejtett jelszó</Link>
                             </div>
                             <div class="relative">
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white rounded-md px-2 py-1">Bejelentkezés</button>

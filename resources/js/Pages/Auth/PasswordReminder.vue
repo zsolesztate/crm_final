@@ -7,7 +7,7 @@
             <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
                 <div class="max-w-md mx-auto">
                     <div>
-                        <h1 class="text-2xl font-semibold">Jelszóemlékeztető</h1>
+                        <h1 class="text-2xl font-semibold">Elfelejtett jelszó</h1>
                     </div>
                     <form @submit.prevent="submitForm" class="space-y-6">
                     <div class="divide-y divide-gray-200">
@@ -17,7 +17,10 @@
                                 <label for="email" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email cím</label>
                             </div>
                             <div class="relative">
-                                <button disabled="form.processing" @click="submitForm" class="bg-blue-500 hover:bg-blue-400 text-white rounded-md px-2 py-1">Küldés</button>
+                                <button :disabled="form.processing" @click="submitForm" class="bg-blue-500 hover:bg-blue-400 text-white rounded-md px-2 py-1">Küldés</button>
+                            </div>
+                            <div class="text-sm">
+                                <Link href="/login" class="font-semibold text-indigo-600 hover:text-indigo-500">Vissza</Link>
                             </div>
                         </div>
                     </div>
@@ -28,7 +31,7 @@
     </div>
 </template>
 <script setup>
-import { useForm } from '@inertiajs/vue3';
+import { useForm,Link } from '@inertiajs/vue3';
 
 const form = useForm({
     email: '',

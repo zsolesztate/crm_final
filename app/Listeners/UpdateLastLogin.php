@@ -10,6 +10,6 @@ class UpdateLastLogin
     public function handle(Login $event)
     {
         $user = $event->user;
-        $user->update(['last_login_at' => now()]);
+        $user->update(['last_login_at' => now()->toDateString()]);
     }
 }

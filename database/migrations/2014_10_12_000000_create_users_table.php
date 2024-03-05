@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('position')->default('');
             $table->boolean('active_status')->default(false);
             $table->boolean('can_modify')->default(false);
-            $table->timestamp('last_login_at')->nullable();
+            $table->date('last_login_at')->nullable();
             $table->rememberToken();
         });
     }

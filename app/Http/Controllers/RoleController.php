@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
+use Inertia\Response;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -25,21 +28,50 @@ class RoleController extends Controller
         ]);
     }
 
+    public function create(): Response
+    {
+        return Inertia::render('CreateRole',[
+            'permissions' => Permission::all('id','name')
+        ]);
+    }
+
     public function store(StoreRoleRequest $request): RedirectResponse
     {
         Gate::authorize('add roles');
 
-        Role::query()->create($request->validated());
+        $validatedData = $request->validated();
+
+        $role = Role::query()->create([
+            'name' => $validatedData['name'],
+        ]);
+
+        if (isset($validatedData['permissions'])){
+            $role->syncPermissions($validatedData['permissions']);
+        }
 
         return redirect('/roles');
-
     }
 
-    public function update(StoreRoleRequest $request,Role $role): RedirectResponse
+    public function edit(Role $role): Response
     {
+
+        $roleWithPermissions = Role::with('permissions')->find($role->id);
+
+        return Inertia::render('EditRole', [
+            'role' => $roleWithPermissions,
+            'permissions' => Permission::all('id','name'),
+        ]);
+    }
+
+    public function update(UpdateRoleRequest $request,Role $role): RedirectResponse
+    {
+        $validatedData = $request->validated();
+
         Gate::authorize('edit roles');
 
-        $role->update($request->validated());
+        $role->update($validatedData);
+
+        $role->syncPermissions($validatedData['permissions']);
 
         return redirect('/roles');
     }
@@ -52,9 +84,11 @@ class RoleController extends Controller
             if ($role->users()->exists()) {
                 return redirect()->back()->withErrors('A szerepkör nem törölhető, mert hozzárendelt felhasználók vannak.');
             }
+
             $role->delete();
 
             return redirect('/roles')->withSuccess('A szerepkör sikeresen törölve.');
+
         } catch (ModelNotFoundException $e) {
 
             return back()->withError('A szerepkör nem található.');
@@ -69,7 +103,6 @@ class RoleController extends Controller
                 User::find($request->userId)->roles()->sync([$request->roleId]);
 
                 return redirect('/roles');
-
             }
         }
     }

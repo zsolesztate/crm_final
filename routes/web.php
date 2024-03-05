@@ -9,6 +9,7 @@ use Inertia\Inertia;
 
 
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/', function () {
         return Inertia::render('Index');
     });
@@ -17,12 +18,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/users/{type?}', [UserController::class, 'index'])->name('users.index');
 
-    Route::match(['put', 'patch'], '/users/profile/{user}', [UserController::class, 'profileupdate']);
+    Route::match(['put', 'patch'], '/users/profile/{user}', [UserController::class, 'profileUpdate']);
+
+    Route::match(['put', 'patch'], '/users/profile/{user}/password', [UserController::class, 'passwordUpdate']);
+
+    Route::match(['put', 'patch'], '/users/{user}/password', [UserController::class, 'userPasswordUpdate']);
 
     Route::resource('/roles', RoleController::class);
 
     Route::post('/roles/user', [RoleController::class,'updateUserRole']);
-
 
     Route::resource('/partners', PartnerController::class);
 

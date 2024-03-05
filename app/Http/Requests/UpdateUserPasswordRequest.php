@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRoleRequest extends FormRequest
+class UpdateUserPasswordRequest extends FormRequest
 {
 
     public function authorize(): bool
@@ -15,8 +15,7 @@ class StoreRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['unique:roles,name','required','string','max:255'],
-            'permissions' =>['array','nullable'],
+            'password' => ['required', 'string', 'min:8'],
         ];
     }
 }

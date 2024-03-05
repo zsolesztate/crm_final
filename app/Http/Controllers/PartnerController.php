@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class PartnerController extends Controller
 {
@@ -31,6 +32,13 @@ class PartnerController extends Controller
             'users' => $users
         ]);
 
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('CreatePartner',[
+            'users' => User::all('id','name')
+        ]);
     }
 
     public function store(StorePartnerRequest $request): RedirectResponse
@@ -55,15 +63,17 @@ class PartnerController extends Controller
         return redirect('/partners');
     }
 
-    public function destroy(Partner $partner): RedirectResponse
+
+    public function edit(Partner $partner): Response
     {
-        Gate::authorize('delete partner');
+        $partner->load('users');
 
-        $partner->delete();
-
-        return redirect('/partners');
-
+        return Inertia::render('EditPartner', [
+            'partner' => $partner,
+            'users' => User::all('id','name'),
+        ]);
     }
+
 
     public function update(UpdatePartnerRequest $request,Partner $partner): RedirectResponse
     {
@@ -85,6 +95,15 @@ class PartnerController extends Controller
                 $partner->users()->attach($user['id']);
             }
         }
+
+        return redirect('/partners');
+    }
+
+    public function destroy(Partner $partner): RedirectResponse
+    {
+        Gate::authorize('delete partner');
+
+        $partner->delete();
 
         return redirect('/partners');
     }

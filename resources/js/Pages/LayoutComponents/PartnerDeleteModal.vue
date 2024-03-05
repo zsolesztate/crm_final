@@ -40,7 +40,7 @@ const deleteUser = (modalPartnerId) => {
     router.delete(`/partners/${modalPartnerId}/`, {
         onSuccess: () => {
             snackbar.add({
-                type: 'error',
+                type: 'success',
                 text: 'Partner sikeresen törölve'
             })
             closeModal();

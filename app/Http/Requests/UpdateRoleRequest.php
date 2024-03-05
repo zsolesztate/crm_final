@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreRoleRequest extends FormRequest
+class UpdateRoleRequest extends FormRequest
 {
 
     public function authorize(): bool
@@ -15,8 +16,9 @@ class StoreRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['unique:roles,name','required','string','max:255'],
+            'name' => ['required', 'string', 'max:255', Rule::unique('roles')->ignore($this->role->id)],
             'permissions' =>['array','nullable'],
         ];
     }
 }
+

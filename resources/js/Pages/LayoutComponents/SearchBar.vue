@@ -66,6 +66,12 @@ const startSearch = () => {
     if (searchTimeout) {
         clearTimeout(searchTimeout);
     }
+
+    const searchText = searchData.value.text.trim();
+    if (!searchText) {
+        deleteSearch()
+    }
+
     searchTimeout = setTimeout(() => {
         const Text = searchData.value.text.toLowerCase();
         const type = 'search';
