@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +19,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/users/{type?}', [UserController::class, 'index'])->name('users.index');
 
-    Route::match(['put', 'patch'], '/users/profile/{user}', [UserController::class, 'profileUpdate']);
-
-    Route::match(['put', 'patch'], '/users/profile/{user}/password', [UserController::class, 'passwordUpdate']);
-
     Route::match(['put', 'patch'], '/users/{user}/password', [UserController::class, 'userPasswordUpdate']);
 
     Route::resource('/roles', RoleController::class);
@@ -30,10 +27,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/partners', PartnerController::class);
 
-    Route::get('/profile', function () {
-        return Inertia::render('EditProfile',[
-            'user' => Auth::user(),
-        ]);
-    });
+    Route::get('/profile', [ProfileController::class, 'edit'])->middleware('can_modify')->name('profile.edit');
 
+    Route::match(['put', 'patch'], '/profile/{user}', [ProfileController::class, 'profileUpdate']);
+
+    Route::match(['put', 'patch'], '/profile/{user}/password', [ProfileController::class, 'passwordUpdate']);
 });

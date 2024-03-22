@@ -18,18 +18,21 @@ class RoleController extends Controller
 {
     public function index()
     {
-        Gate::authorize('view roles');
-
-        $all_users_with_all_their_roles = User::with('roles:name')->get();
+        if (!auth()->user()->can('Jogosultságok megtekintése')) {
+            return Inertia::render('Error403');
+        }
 
         return Inertia::render('Roles',[
-            'users' => $all_users_with_all_their_roles,
-            'roles' =>  Role::select('id','name')->get()
+            'roles' =>  Role::select('id','name')->orderBy('name')->get()
         ]);
     }
 
     public function create(): Response
     {
+        if (!auth()->user()->can('Jogosultság létrehozása')) {
+            return Inertia::render('Error403');
+        }
+
         return Inertia::render('CreateRole',[
             'permissions' => Permission::all('id','name')
         ]);
@@ -37,7 +40,7 @@ class RoleController extends Controller
 
     public function store(StoreRoleRequest $request): RedirectResponse
     {
-        Gate::authorize('add roles');
+        Gate::authorize('Jogosultság létrehozása');
 
         $validatedData = $request->validated();
 
@@ -49,61 +52,47 @@ class RoleController extends Controller
             $role->syncPermissions($validatedData['permissions']);
         }
 
-        return redirect('/roles');
+        return redirect()->route('roles.index');
     }
 
     public function edit(Role $role): Response
     {
-
-        $roleWithPermissions = Role::with('permissions')->find($role->id);
+        if (!auth()->user()->can('Jogosultság szerkesztése')) {
+            return Inertia::render('Error403');
+        }
 
         return Inertia::render('EditRole', [
-            'role' => $roleWithPermissions,
+            'role' => $role->load('permissions'),
             'permissions' => Permission::all('id','name'),
         ]);
     }
 
     public function update(UpdateRoleRequest $request,Role $role): RedirectResponse
     {
-        $validatedData = $request->validated();
+        Gate::authorize('Jogosultság szerkesztése');
 
-        Gate::authorize('edit roles');
+        $validatedData = $request->validated();
 
         $role->update($validatedData);
 
         $role->syncPermissions($validatedData['permissions']);
 
-        return redirect('/roles');
+        return redirect()->route('roles.index');
     }
 
     public function destroy(Role $role)
     {
-        Gate::authorize('delete roles');
+        Gate::authorize('Jogosultság törlése');
 
-        try {
             if ($role->users()->exists()) {
-                return redirect()->back()->withErrors('A szerepkör nem törölhető, mert hozzárendelt felhasználók vannak.');
+                return redirect()->back()
+                    ->withErrors('A szerepkör nem törölhető, mert hozzárendelt felhasználók vannak.');
             }
 
             $role->delete();
 
-            return redirect('/roles')->withSuccess('A szerepkör sikeresen törölve.');
-
-        } catch (ModelNotFoundException $e) {
-
-            return back()->withError('A szerepkör nem található.');
-        }
+            return redirect()->route('roles.index')
+                ->withSuccess('A szerepkör sikeresen törölve.');
     }
 
-    public function updateUserRole(Request $request)
-    {
-        if (Auth::user()->hasRole('admin')) {
-
-            if (User::find($request->userId) && Role::find($request->roleId)) {
-                User::find($request->userId)->roles()->sync([$request->roleId]);
-
-                return redirect('/roles');
-            }
-        }
-    }
 }

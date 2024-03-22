@@ -6,6 +6,18 @@ import TableBody from "./LayoutComponents/TableBody.vue";
 import TableHead from "./LayoutComponents/TableHead.vue";
 import TableSkeleton from "./LayoutComponents/TableSkeleton.vue";
 
+import FormSection from "./LayoutComponents/FormSection.vue";
+import Label from "./LayoutComponents/Label.vue";
+import InputField from "./LayoutComponents/InputField.vue";
+import PrimaryButton from "./LayoutComponents/PrimaryButton.vue";
+import BackButton from "./LayoutComponents/BackButton.vue";
+import SimpleDropdown from "./LayoutComponents/SimpleDropdown.vue";
+import SimpleCheckbox from "./LayoutComponents/SimpleCheckbox.vue";
+import CheckboxesGrid from "./LayoutComponents/CheckboxesGrid.vue";
+import DropdownWithSelectedField from "./LayoutComponents/DropdownWithSelectedField.vue";
+
+
+
 export const Table = {
     TableBody,
     TableHead,
@@ -16,4 +28,16 @@ export const Icons = {
     DeleteIcon,
     EditIcon,
     PlusIcon
+}
+
+export const FormComponents = {
+    FormSection,
+    Label,
+    InputField,
+    PrimaryButton,
+    BackButton,
+    SimpleDropdown,
+    SimpleCheckbox,
+    CheckboxesGrid,
+    DropdownWithSelectedField
 }

@@ -20,5 +20,14 @@ class UpdateRoleRequest extends FormRequest
             'permissions' =>['array','nullable'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'A csoport neve mező kitöltése kötelező.',
+            'name.max' => 'A csoport neve mező maximum :max karakter hosszú lehet.',
+            'name.unique' => 'Ez a csoport név már foglalt.',
+        ];
+    }
 }
 

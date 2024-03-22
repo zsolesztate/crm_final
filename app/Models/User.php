@@ -30,10 +30,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-
     public function role()
     {
-        return $this->hasOne(Role::class)->without('pivot');
+        return $this->hasOne(Role::class);
     }
 
     public function partners()

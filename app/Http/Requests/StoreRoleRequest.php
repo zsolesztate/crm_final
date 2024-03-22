@@ -17,6 +17,15 @@ class StoreRoleRequest extends FormRequest
         return [
             'name' => ['unique:roles,name','required','string','max:255'],
             'permissions' =>['array','nullable'],
+            'permissions.*.id' => ['exists:permissions,id']
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'A csoport neve mező kitöltése kötelező.',
+            'name.max' => 'A csoport neve mező maximum :max karakter hosszú lehet.',
         ];
     }
 }

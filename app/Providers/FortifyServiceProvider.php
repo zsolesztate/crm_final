@@ -41,6 +41,10 @@ class FortifyServiceProvider extends ServiceProvider
                     throw ValidationException::withMessages(['email' => 'Profilod inaktív.Vedd fel a kapcsolatot az adminisztrátorral.']);
 
                 }
+
+                $user->last_login_at = now();
+                $user->save();
+
                 return $user;
 
             }
@@ -63,8 +67,6 @@ class FortifyServiceProvider extends ServiceProvider
             ]);
         });
 
-        Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 

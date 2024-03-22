@@ -20,11 +20,6 @@ class HandleInertiaRequests extends Middleware
 
     public function share(Request $request)
     {
-        /*return array_merge(parent::share($request), [
-            'userCanModify' => fn () => $request->user()
-                ? $request->user()->only('can_modify')
-                : null,
-        ]);*/
 
         return array_merge(parent::share($request), [
             'userPermissions' => function () use ($request) {
@@ -33,8 +28,19 @@ class HandleInertiaRequests extends Middleware
                 if ($user) {
                     return [
                         'userCanModify' => $user->can_modify,
-                        'can_view_users' => Gate::allows('view users', $user),
-                        'can_view_roles' => Gate::allows('view roles', $user),
+                        'can_view_users' => Gate::allows('Munkatársak megtekintése', $user),
+                        'can_create_users' => Gate::allows('Munkatárs létrehozása', $user),
+                        'can_edit_users' => Gate::allows('Munkatárs szerkesztése', $user),
+                        'can_delete_users' => Gate::allows('Munkatárs törlése', $user),
+                        'can_view_roles' => Gate::allows('Jogosultságok megtekintése', $user),
+                        'can_create_roles' => Gate::allows('Jogosultság létrehozása', $user),
+                        'can_edit_roles' => Gate::allows('Jogosultság szerkesztése', $user),
+                        'can_delete_roles' => Gate::allows('Jogosultság törlése', $user),
+                        //'can_view_partners' => Gate::allows('Partnerek megtekintése', $user),
+                        'can_view_partners' => Gate::allows('Partnerek megtekintése') || !$user->partners->isEmpty(),
+                        'can_create_partners' => Gate::allows('Partner létrehozása', $user),
+                        'can_edit_partners' => Gate::allows('Partner szerkesztése', $user),
+                        'can_delete_partners' => Gate::allows('Partner törlése', $user),
                     ];
                 }
 
