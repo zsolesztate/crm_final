@@ -19,12 +19,12 @@ class PartnerController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->partners->isEmpty() && !$user->can('Partnerek megtekintése')) {
+        if ($user->partners->isEmpty() && !$user->can('can_view_partners')) {
             return Inertia::render('Error403');
         }
 
         $partners = Partner::query()
-            ->when(!$user->can('Partnerek megtekintése'), function ($query) use ($user) {
+            ->when(!$user->can('can_view_partners'), function ($query) use ($user) {
                 $query->whereHas('users', function ($subQuery) use ($user) {
                     $subQuery->where('user_id', $user->id);
                 });
@@ -40,7 +40,7 @@ class PartnerController extends Controller
 
     public function create(): Response
     {
-        Gate::authorize('Partner létrehozása');
+        Gate::authorize('can_create_partner');
 
         return Inertia::render('CreatePartner',[
             'users' => User::all('id','name')
@@ -49,7 +49,7 @@ class PartnerController extends Controller
 
     public function store(StorePartnerRequest $request): RedirectResponse
     {
-        Gate::authorize('Partner létrehozása');
+        Gate::authorize('can_create_partner');
 
         $validatedData = $request->validated();
 
@@ -59,19 +59,16 @@ class PartnerController extends Controller
             'email' => $validatedData['email'],
         ]);
 
-        foreach ($validatedData['users'] as $user) {
-            $user = User::find($user['id']);
-            if ($user) {
-                $partner->users()->attach($user['id']);
-            }
-        }
+        $userIds = collect($validatedData['users'])->pluck('id');
+
+        $partner->users()->attach($userIds);
 
         return redirect()->route('partners.index');
     }
 
     public function edit(Partner $partner): Response
     {
-        Gate::authorize('Partner szerkesztése');
+        Gate::authorize('can_edit_partner');
 
         $partner->load('users');
 
@@ -83,7 +80,7 @@ class PartnerController extends Controller
 
     public function update(UpdatePartnerRequest $request,Partner $partner): RedirectResponse
     {
-        Gate::authorize('Partner szerkesztése');
+        Gate::authorize('can_edit_partner');
 
         $validatedData = $request->validated();
 
@@ -100,7 +97,7 @@ class PartnerController extends Controller
 
     public function destroy(Partner $partner): RedirectResponse
     {
-        Gate::authorize('Partner törlése');
+        Gate::authorize('can_delete_partner');
 
         $partner->delete();
 

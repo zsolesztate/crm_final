@@ -12,4 +12,13 @@ class ShowUsersRequest extends FormRequest
             'search' => 'sometimes|required|string|min:3|max:150|regex:/^[a-zA-Z0-9\sáÁéÉíÍóÓöÖőŐúÚüÜűŰ.\-]*$/',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'search.min' => 'Az keresési érték legalább :min karakter hosszú kell legyen.',
+            'search.max' => 'A keresési érték maximum :max karakter hosszú lehet.',
+            'search.regex' => 'A keresési érték csak számokat, betűket és ékezetes betűket tartalmazhat.'
+        ];
+    }
 }

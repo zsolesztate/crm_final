@@ -31,7 +31,7 @@ const selectedCheckboxes = ref([]);
 
 const form = useForm({
     name: '',
-    permissions:[],
+    permissions: {},
 })
 
 const submit = () => {
@@ -43,7 +43,6 @@ const submit = () => {
                 text: 'Csoport hozzáadva'
             })
             form.reset();
-            closeField();
         },
     });
 };
