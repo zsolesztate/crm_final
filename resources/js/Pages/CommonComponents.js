@@ -1,6 +1,9 @@
 import DeleteIcon from "./LayoutComponents/Icons/DeleteIcon.vue";
 import EditIcon from "./LayoutComponents/Icons/EditIcon.vue";
 import PlusIcon from "./LayoutComponents/Icons/PlusIcon.vue";
+import BackIcon from "./LayoutComponents/Icons/BackIcon.vue";
+
+import GradientButton from "./LayoutComponents/GradientButton.vue";
 
 import TableBody from "./LayoutComponents/TableBody.vue";
 import TableHead from "./LayoutComponents/TableHead.vue";
@@ -16,8 +19,6 @@ import SimpleCheckbox from "./LayoutComponents/SimpleCheckbox.vue";
 import CheckboxesGrid from "./LayoutComponents/CheckboxesGrid.vue";
 import DropdownWithSelectedField from "./LayoutComponents/DropdownWithSelectedField.vue";
 
-
-
 export const Table = {
     TableBody,
     TableHead,
@@ -27,7 +28,9 @@ export const Table = {
 export const Icons = {
     DeleteIcon,
     EditIcon,
-    PlusIcon
+    PlusIcon,
+    BackIcon,
+    GradientButton
 }
 
 export const FormComponents = {

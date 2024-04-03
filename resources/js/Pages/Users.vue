@@ -83,7 +83,6 @@
     </ShowLayout>
     <DeleteModal :modalId="modalUserId" :show="showModal" :route="'users'" @close="closeModal"/>
     <vue3-snackbar bottom right :duration="4000"></vue3-snackbar>
-    {{userPermissions}}
 </template>
 <script setup>
 import Navbar from "./LayoutComponents/Navbar.vue";
@@ -98,7 +97,7 @@ import { defineProps,ref } from 'vue';
 const { EditIcon, DeleteIcon,PlusIcon } = Icons
 const {TableSkeleton,TableHead,TableBody } = Table
 const {users,userPermissions,searchedText,errors} = defineProps(['users','userPermissions','searchedText','errors']);
-console.log(userPermissions)
+
 const isActive = (activeStatus) => {
     return activeStatus ? 'Aktív' : 'Inaktív';
 };
