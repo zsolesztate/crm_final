@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VacationController;
@@ -30,6 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/partners', PartnerController::class);
 
     Route::resource('/contacts', ContactController::class);
+
+    Route::resource('/projects', ProjectController::class);
+
 
     Route::resource('/vacations/{contact}', VacationController::class)->except(['edit', 'show','update','destroy']);
 

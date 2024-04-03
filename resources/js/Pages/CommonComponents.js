@@ -12,6 +12,7 @@ import TableSkeleton from "./LayoutComponents/TableSkeleton.vue";
 import FormSection from "./LayoutComponents/FormSection.vue";
 import Label from "./LayoutComponents/Label.vue";
 import InputField from "./LayoutComponents/InputField.vue";
+import TextArea from "./LayoutComponents/TextArea.vue";
 import PrimaryButton from "./LayoutComponents/PrimaryButton.vue";
 import BackButton from "./LayoutComponents/BackButton.vue";
 import SimpleDropdown from "./LayoutComponents/SimpleDropdown.vue";
@@ -42,5 +43,6 @@ export const FormComponents = {
     SimpleDropdown,
     SimpleCheckbox,
     CheckboxesGrid,
-    DropdownWithSelectedField
+    DropdownWithSelectedField,
+    TextArea
 }

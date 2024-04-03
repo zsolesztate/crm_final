@@ -24,6 +24,9 @@
                     <Link v-if="userCanModify.can_view_partners" href="/partners" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Partnerek kezelése</Link>
                 </li>
                 <li>
+                    <Link  href="/projects" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Projektek kezelése</Link>
+                </li>
+                <li>
                     <Link href="/contacts" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Kapcsolattartók kezelése</Link>
                 </li>
                 <li>
@@ -45,6 +48,9 @@
                     </li>
                     <li>
                         <Link v-if="userCanModify.can_view_partners" href="/partners" class="text-sm font-semibold hover:text-indigo-500 leading-6 text-gray-900 mb-4">Partnerek kezelése</Link>
+                    </li>
+                    <li>
+                        <Link  href="/projects" class="text-sm font-semibold hover:text-indigo-500 leading-6 text-gray-900 mb-4">Projektek kezelése</Link>
                     </li>
                     <li>
                         <Link  href="/contacts" class="text-sm font-semibold hover:text-indigo-500 leading-6 text-gray-900 mb-4">Kapcsolattartók kezelése</Link>
