@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VacationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +28,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/roles/user', [RoleController::class,'updateUserRole']);
 
     Route::resource('/partners', PartnerController::class);
+
+    Route::resource('/contacts', ContactController::class);
+
+    Route::resource('/vacations/{contact}', VacationController::class)->except(['edit', 'show','update','destroy']);
+
+    Route::get('/vacations/{contact}/{vacation}/edit', [VacationController::class,'edit']);
+
+    Route::match(['put', 'patch'],'/vacations/{contact}/{vacation}', [VacationController::class,'update']);
+
+    Route::delete('/vacations/{contact}/{vacation}', [VacationController::class,'destroy']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->middleware('can_modify')->name('profile.edit');
 

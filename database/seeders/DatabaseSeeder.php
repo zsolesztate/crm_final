@@ -12,18 +12,18 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        Permission::create(['name' => 'Munkatársak megtekintése']);
-        Permission::create(['name' => 'Munkatárs létrehozása']);
-        Permission::create(['name' => 'Munkatárs szerkesztése']);
-        Permission::create(['name' => 'Munkatárs törlése']);
-        Permission::create(['name' => 'Jogosultságok megtekintése']);
-        Permission::create(['name' => 'Jogosultság létrehozása']);
-        Permission::create(['name' => 'Jogosultság szerkesztése']);
-        Permission::create(['name' => 'Jogosultság törlése']);
-        Permission::create(['name' => 'Partnerek megtekintése']);
-        Permission::create(['name' => 'Partner létrehozása']);
-        Permission::create(['name' => 'Partner szerkesztése']);
-        Permission::create(['name' => 'Partner törlése']);
+        Permission::create(['name' => 'can_view_users']);
+        Permission::create(['name' => 'can_create_user']);
+        Permission::create(['name' => 'can_edit_user']);
+        Permission::create(['name' => 'can_delete_user']);
+        Permission::create(['name' => 'can_view_roles']);
+        Permission::create(['name' => 'can_create_role']);
+        Permission::create(['name' => 'can_edit_role']);
+        Permission::create(['name' => 'can_delete_role']);
+        Permission::create(['name' => 'can_view_partners']);
+        Permission::create(['name' => 'can_create_partner']);
+        Permission::create(['name' => 'can_edit_partner']);
+        Permission::create(['name' => 'can_delete_partner']);
 
         $permissions = Permission::all();
 
