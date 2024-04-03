@@ -3,25 +3,26 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreUserRequest extends FormRequest
+class StoreContactRequest extends FormRequest
 {
     public function authorize(): bool
     {
         return true;
     }
 
-    public function rules(): array
+    public function rules()
     {
         return [
-            'name' => ['required','string','max:255','regex:/^[a-zA-Z0-9\sáÁéÉíÍóÓöÖőŐúÚüÜűŰ.\-]*$/'],
-            'email' => ['required','email','unique:users','email','min:10','max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:contacts', 'min:10', 'max:255'],
             'phone' => ['required', 'string', 'max:255', 'regex:/^[+\/\-\s\d]+$/'],
-            'position' => ['required','string','max:255'],
-            'role' => ['required'],
-            'password' => ['required','string','min:8'],
-            'active_status' =>['required','boolean'],
-            'can_modify' =>['required','boolean'],
+            'position' => ['required', 'string', 'max:255'],
+            'partner_id' => ['required', 'exists:partners,id', 'integer'],
+            'primary_contact' => ['nullable', 'boolean', Rule::unique('contacts')->where(function ($query) {
+                return $query->where('primary_contact', true)->where('partner_id', $this->partner_id);
+            })->ignore($this->input('id'))],
         ];
     }
 
@@ -40,9 +41,8 @@ class StoreUserRequest extends FormRequest
             'phone.regex' => 'A telefonszám csak számokat, szóközöket és kötőjeleket tartalmazhat.',
             'position.required' => 'A beosztás mező kitöltése kötelező.',
             'position.max' => 'A beosztás maximum :max karakter hosszú lehet.',
-            'role.required' => 'Csoport kiválasztása kötelező',
-            'password.required' => 'A jelszó mező kitöltése kötelező.',
-            'password.min' => 'A jelszó legalább :min karakter hosszú legyen.',
+            'partner_id.required' => 'Partner kiválasztása kötelező',
+            'primary_contact.unique' => 'Ehhez a partnerhez már van más elsődleges kapcsolattartó beállítva.'
         ];
     }
 }
