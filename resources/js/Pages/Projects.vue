@@ -15,6 +15,7 @@
                 <template v-slot:thead>
                     <table-head>Projektnév</table-head>
                     <table-head>Leírás</table-head>
+                    <table-head>Feladatok</table-head>
                     <table-head>Partner</table-head>
                     <table-head>Szerkesztés/törlés</table-head>
 
@@ -29,6 +30,13 @@
                         <table-body>
                             <template v-slot:default>
                                 {{ project.description}}
+                            </template>
+                        </table-body>
+                        <table-body>
+                            <template v-slot:default>
+                                <GradientButton :href="`/tasks/${project.id}`" type="button">
+                                   Feladatok kezelése
+                                </GradientButton>
                             </template>
                         </table-body>
                         <table-body>

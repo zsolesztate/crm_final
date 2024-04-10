@@ -3,16 +3,14 @@
     <FormSection @submit.prevent="submit">
         <template #title>
             Szabadság szerkesztése
-            <div class="flex items-center">
-                <div class="flex-1 mt-4 min-w-0 ms-4">
-                    <p class="text-lg font-medium text-gray-900 truncate">
-                        {{ contact.name}}
-                    </p>
-                    <p class="text-sm mt-2 text-gray-500 truncate">
-                        {{ contact.email}}
-                    </p>
-                </div>
-            </div>
+            <SubInfo>
+                <template #main_info>
+                    Név: :  {{vacation.contact.name}}
+                </template>
+                <template #sub_info>
+                    Email cím: :  {{vacation.contact.email}}
+                </template>
+            </SubInfo>
         </template>
         <template #form>
             <div class="sm:col-span-2">
@@ -21,16 +19,16 @@
             </div>
             <div>
                 <Label for="email">Szabadság kezdete*</Label>
-                <DateInputField v-model="form.fromDate" :error="form.errors.fromDate"  />
+                <DateInputField v-model="form.from_date" :error="form.errors.from_date"  />
             </div>
             <div>
                 <Label for="email">Szabadság vége*</Label>
-                <DateInputField v-model="form.toDate" :error="form.errors.toDate" />
+                <DateInputField v-model="form.to_date" :error="form.errors.to_date" />
             </div>
         </template>
         <template #actions>
             <PrimaryButton type="submit" :disabled="form.processing">Mentés</PrimaryButton>
-            <BackButton :href="`/vacations/${contact.id}`" >Mégse</BackButton>
+            <BackButton :href="`/vacations/${vacation.contact.id}`" >Mégse</BackButton>
         </template>
     </FormSection>
     <vue3-snackbar bottom right :duration="4000"></vue3-snackbar>
@@ -43,20 +41,19 @@ import DateInputField from "./LayoutComponents/DateInputField.vue";
 import { useForm } from '@inertiajs/vue3';
 import {useSnackbar, Vue3Snackbar} from "vue3-snackbar";
 
-const {FormSection,Label,InputField,PrimaryButton,BackButton} = FormComponents
-const {vacation,contact,userPermissions} = defineProps(['vacation','contact','userPermissions']);
+const {FormSection,Label,InputField,PrimaryButton,BackButton,SubInfo} = FormComponents
+const {vacation,userPermissions} = defineProps(['vacation','userPermissions']);
 const snackbar = useSnackbar();
-
 
 const form = useForm({
     _method:"PUT",
     name: vacation.name,
-    fromDate:vacation.from_date,
-    toDate:vacation.to_date,
+    from_date:vacation.from_date,
+    to_date:vacation.to_date,
 });
 
 const submit = () => {
-    form.post(`/vacations/${contact.id}/${vacation.id}`,{
+    form.post(`/vacations/${vacation.id}`,{
         onSuccess: () => {
             snackbar.add({
                 type: 'success',

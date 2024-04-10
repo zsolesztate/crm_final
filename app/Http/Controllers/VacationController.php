@@ -42,32 +42,27 @@ class VacationController extends Controller
         return redirect('vacations/' . $contact->id);
     }
 
-    public function edit(Contact $contact,Vacation $vacation): Response
+    public function edit(Vacation $vacation): Response
     {
+        $vacation->load('contact');
+
         return Inertia::render('EditVacation', [
             'vacation' => $vacation,
-            'contact' => $contact
         ]);
     }
 
-    public function update(Contact $contact,Vacation $vacation,UpdateVacationRequest $request): RedirectResponse
+    public function update(Vacation $vacation,UpdateVacationRequest $request): RedirectResponse
     {
-        $validatedData = $request->validated();
+        $vacation->update($request->validated());
 
-        $vacation->update([
-            'name' => $validatedData['name'],
-            'from_date' => $validatedData['fromDate'],
-            'to_date' => $validatedData['toDate'],
-        ]);
-
-        return redirect('vacations/' . $contact->id);
+        return redirect('vacations/' . $vacation->contact_id);
     }
 
-    public function destroy(Contact $contact,Vacation $vacation): RedirectResponse
+    public function destroy(Vacation $vacation): RedirectResponse
     {
         $vacation->delete();
 
-        return redirect('vacations/' . $contact->id);
+        return redirect('vacations/' . $vacation->contact_id);
     }
 
 

@@ -3,16 +3,14 @@
     <ShowLayout>
         <template v-slot:title>
             Szabadságok kezelése
-            <div class="flex items-center">
-                <div class="flex-1 mt-4 min-w-0 ms-4">
-                    <p class="text-lg font-medium text-gray-900 truncate">
-                        {{ contact.name}}
-                    </p>
-                    <p class="text-sm mt-2 text-gray-500 truncate">
-                        {{ contact.email}}
-                    </p>
-                </div>
-            </div>
+            <SubInfo>
+                <template #main_info>
+                    Név: {{ contact.name}}
+                </template>
+                <template #sub_info>
+                    Email cím: {{ contact.email}}
+                </template>
+            </SubInfo>
         </template>
         <template v-slot:content>
             <div class="flex items-center justify-between">
@@ -51,7 +49,7 @@
                         </table-body>
                         <table-body>
                             <template v-slot:link>
-                                <Link  :href="`/vacations/${contact.id}/${vacation.id}/edit`" class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" as="button" aria-current="page">
+                                <Link  :href="`/vacations/${vacation.id}/edit`" class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" as="button" aria-current="page">
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <EditIcon />
                                 </span>
@@ -73,7 +71,7 @@
             </table-skeleton>
         </template>
     </ShowLayout>
-    <DeleteModal :modalId="modalVacationId" :show="showModal" :route="`vacations/${contact.id}`" @close="closeModal"/>
+    <DeleteModal :modalId="modalVacationId" :show="showModal" :route="`vacations`" @close="closeModal"/>
     <vue3-snackbar bottom right :duration="4000"></vue3-snackbar>
 </template>
 <script setup>
@@ -86,7 +84,7 @@ import DeleteModal from "./LayoutComponents/DeleteModal.vue";
 import {Vue3Snackbar} from "vue3-snackbar";
 
 const { EditIcon, DeleteIcon,PlusIcon,BackIcon } = Icons
-const {TableSkeleton,TableHead,TableBody } = Table
+const {TableSkeleton,TableHead,TableBody,SubInfo } = Table
 const {vacations,contact,userPermissions} = defineProps(['vacations','userPermissions','contact']);
 
 const modalVacationId = ref('');

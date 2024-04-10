@@ -8,6 +8,7 @@ import GradientButton from "./LayoutComponents/GradientButton.vue";
 import TableBody from "./LayoutComponents/TableBody.vue";
 import TableHead from "./LayoutComponents/TableHead.vue";
 import TableSkeleton from "./LayoutComponents/TableSkeleton.vue";
+import SubInfo from "./LayoutComponents/SubInfo.vue";
 
 import FormSection from "./LayoutComponents/FormSection.vue";
 import Label from "./LayoutComponents/Label.vue";
@@ -19,11 +20,13 @@ import SimpleDropdown from "./LayoutComponents/SimpleDropdown.vue";
 import SimpleCheckbox from "./LayoutComponents/SimpleCheckbox.vue";
 import CheckboxesGrid from "./LayoutComponents/CheckboxesGrid.vue";
 import DropdownWithSelectedField from "./LayoutComponents/DropdownWithSelectedField.vue";
+import DateInputField from "./LayoutComponents/DateInputField.vue";
 
 export const Table = {
     TableBody,
     TableHead,
-    TableSkeleton
+    TableSkeleton,
+    SubInfo
 }
 
 export const Icons = {
@@ -44,5 +47,7 @@ export const FormComponents = {
     SimpleCheckbox,
     CheckboxesGrid,
     DropdownWithSelectedField,
-    TextArea
+    TextArea,
+    DateInputField,
+    SubInfo
 }

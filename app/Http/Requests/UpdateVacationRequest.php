@@ -16,8 +16,8 @@ class UpdateVacationRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:5', 'max:255'],
-            'fromDate' => ['required', 'date','before_or_equal:toDate', new \App\Rules\DateRangeRule($this->contact->id,$this->fromDate, $this->toDate,$this->vacation->id)],
-            'toDate' => ['required', 'date', 'after_or_equal:fromDate', new \App\Rules\DateRangeRule($this->contact->id,$this->fromDate, $this->toDate,$this->vacation->id)],
+            'from_date' => ['required', 'date','before_or_equal:from_date', new \App\Rules\DateRangeRule($this->vacation->contact_id,$this->from_date, $this->to_date,$this->vacation->id)],
+            'to_date' => ['required', 'date', 'after_or_equal:to_date', new \App\Rules\DateRangeRule($this->vacation->contact_id,$this->from_date, $this->to_date,$this->vacation->id)],
         ];
     }
 
@@ -28,10 +28,10 @@ class UpdateVacationRequest extends FormRequest
             'name.regex' => 'Az indok csak betűket, számokat és ékezetes betűket tartalmazhat.',
             'name.min' => 'A indok minimum :min karakter hosszúnak kell lennie.',
             'name.max' => 'A indok maximum :max karakter hosszú lehet.',
-            'fromDate.required'  => 'Kezdő dátum kiválasztása kötelező',
-            'fromDate.before_or_equal'  => 'Kezdő dátum nem lehet később mint a végső dátum',
-            'toDate.required'  => 'Végső dátum kiválasztása kötelező',
-            'toDate.after_or_equal'  => 'A végső dátum nem lehet korábbi mint a kezdő dátum.',
+            'from_date.required'  => 'Kezdő dátum kiválasztása kötelező',
+            'from_date.before_or_equal'  => 'Kezdő dátum nem lehet később mint a végső dátum',
+            'to_date.required'  => 'Végső dátum kiválasztása kötelező',
+            'to_date.after_or_equal'  => 'A végső dátum nem lehet korábbi mint a kezdő dátum.',
         ];
     }
 }

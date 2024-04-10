@@ -23,4 +23,9 @@ class Contact extends Model
     {
         return $this->hasMany(Vacation::class);
     }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
 }

@@ -28,6 +28,9 @@
             </div>
         </div>
     </div>
+    <div v-if=error class="block mt-1.5 ml-1 text-sm font-semibold leading-6 text-rose-500">
+        {{error}}
+    </div>
 </template>
 <script setup>
 import {computed, defineEmits, defineProps, ref} from "vue";

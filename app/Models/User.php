@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Partner::class, 'users_partners');
     }
+
+    public function tasks() : BelongsToMany
+    {
+        return $this->belongsToMany(Task::class, 'tasks_users');
+    }
 }

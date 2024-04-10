@@ -51,7 +51,7 @@
                         </table-body>
                         <table-body>
                             <template v-slot:default>
-                                <GradientButton :href="`/vacations/${contact.id}`" :type="button">
+                                <GradientButton :href="`/vacations/${contact.id}`" type="button">
                                     Szabadságok kezelése
                                 </GradientButton>
                             </template>

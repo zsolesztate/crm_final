@@ -34,15 +34,13 @@ import { FormComponents } from "./CommonComponents.js";
 
 const {FormSection,Label,InputField,PrimaryButton,BackButton,SimpleDropdown,SimpleCheckbox,TextArea} = FormComponents
 const {userPermissions,partners} = defineProps(['userPermissions','partners']);
+const snackbar = useSnackbar();
 
 const SelectedPartner = ref(null);
 
 const handleSelectedPartner = (partner) => {
     SelectedPartner.value = partner.id;
 };
-
-const snackbar = useSnackbar();
-
 
 const form = useForm({
     name: '',
@@ -62,5 +60,4 @@ const submit = () => {
         },
     });
 };
-
 </script>
