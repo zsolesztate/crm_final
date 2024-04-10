@@ -18,7 +18,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->can('Jogosultságok megtekintése')) {
+        if (!auth()->user()->can('can_view_roles')) {
             return Inertia::render('Error403');
         }
 
@@ -29,7 +29,7 @@ class RoleController extends Controller
 
     public function create(): Response
     {
-        if (!auth()->user()->can('Jogosultság létrehozása')) {
+        if (!auth()->user()->can('can_create_role')) {
             return Inertia::render('Error403');
         }
 
@@ -40,7 +40,7 @@ class RoleController extends Controller
 
     public function store(StoreRoleRequest $request): RedirectResponse
     {
-        Gate::authorize('Jogosultság létrehozása');
+        Gate::authorize('can_create_role');
 
         $validatedData = $request->validated();
 
@@ -57,7 +57,7 @@ class RoleController extends Controller
 
     public function edit(Role $role): Response
     {
-        if (!auth()->user()->can('Jogosultság szerkesztése')) {
+        if (!auth()->user()->can('can_edit_role')) {
             return Inertia::render('Error403');
         }
 
@@ -69,7 +69,7 @@ class RoleController extends Controller
 
     public function update(UpdateRoleRequest $request,Role $role): RedirectResponse
     {
-        Gate::authorize('Jogosultság szerkesztése');
+        Gate::authorize('can_edit_role');
 
         $validatedData = $request->validated();
 
@@ -82,7 +82,7 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
-        Gate::authorize('Jogosultság törlése');
+        Gate::authorize('can_delete_role');
 
             if ($role->users()->exists()) {
                 return redirect()->back()

@@ -19,13 +19,15 @@
     </div>
 </template>
 <script setup>
-import {ref, defineProps, defineEmits, computed} from "vue";
+import {ref, defineProps, defineEmits, computed, watch, watchEffect, onMounted, onUpdated} from "vue";
 
-const {options,error,currentOption} = defineProps(['options','error','currentOption']);
+const props = defineProps(['options','error','currentOption']);
 
 const emits = defineEmits(['selected']);
+
+
 const show = ref(false);
-const SelectedOption = ref(currentOption);
+const SelectedOption = ref(props.currentOption);
 
 const showDropdown = () => {
     show.value = ! show.value
@@ -36,7 +38,5 @@ const selectOption = (option) => {
     showDropdown()
     emits('selected',option);
 }
-
 const defaultOption = computed(() => SelectedOption.value ? SelectedOption.value.name : 'Válassz');
-
 </script>
