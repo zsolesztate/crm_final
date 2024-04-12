@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ShowUsersRequest;
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -17,7 +17,7 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
 
-    public function index(ShowUsersRequest $request, $type = null)
+    public function index(SearchRequest $request, $type = null)
     {
         Gate::authorize('can_view_users');
 
@@ -25,20 +25,15 @@ class UserController extends Controller
         $searchText = $validatedData['search'] ?? null;
 
         $users = User::query()
-            ->when($type === 'search', function ($query) use ($searchText) {
-                return $query->where(function ($query) use ($searchText) {
-                    $query
-                       ->where('name', 'LIKE', "%$searchText%")
-                        ->orWhere('email', 'LIKE', "%$searchText%")
-                        ->orWhere('phone', 'LIKE', "%$searchText%")
-                        ->orWhere('position', 'LIKE', "%$searchText%");
-                });
-            })
+            ->when($type === 'search',fn($query) => $query
+                ->where('name', 'LIKE', "%$searchText%")
+                ->orWhere('email', 'LIKE', "%$searchText%")
+                ->orWhere('phone', 'LIKE', "%$searchText%")
+                ->orWhere('position', 'LIKE', "%$searchText%")
+            )
             ->with('roles')
             ->get();
-
-        //a where any sajnos nem működött where 'any' így akarta lekérni
-
+        
         return Inertia::render('Users',[
             'users' => $users,
             'searchedText' => $searchText,

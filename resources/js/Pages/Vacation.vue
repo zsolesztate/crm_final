@@ -14,11 +14,15 @@
         </template>
         <template v-slot:content>
             <div class="flex items-center justify-between">
-                <Link href="/contacts/" class="hover:text-indigo-300 no-underline hover:underline mt-4 flex items-center space-x-2 text-blue-500">
+                <Link href="/contacts/"
+                      class="hover:text-indigo-300 no-underline hover:underline mt-4 flex items-center space-x-2 text-blue-500"
+                >
                     <BackIcon />
                     <span class="">Vissza a kapcsolattartókhoz</span>
                 </Link>
-                <Link :href="`/vacations/${contact.id}/create`" class="hover:text-indigo-300 no-underline hover:underline mt-4 flex items-center space-x-2 text-green-500">
+                <Link :href="`/vacations/${contact.id}/create`"
+                      class="hover:text-indigo-300 no-underline hover:underline mt-4 flex items-center space-x-2 text-green-500"
+                >
                     <span class="">Szabadság hozzáadása</span>
                     <PlusIcon />
                 </Link>
@@ -49,12 +53,18 @@
                         </table-body>
                         <table-body>
                             <template v-slot:link>
-                                <Link  :href="`/vacations/${vacation.id}/edit`" class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" as="button" aria-current="page">
+                                <Link  :href="`/vacations/${vacation.id}/edit`"
+                                       class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                       as="button" aria-current="page"
+                                >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <EditIcon />
                                 </span>
                                 </Link>
-                                <button  @click="openDeleteVacationModal(vacation.id)"  class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
+                                <button  @click="openDeleteVacationModal(vacation.id)"
+                                         class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                         type="button"
+                                >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <DeleteIcon />
                                 </span>

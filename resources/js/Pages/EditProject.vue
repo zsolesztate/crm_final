@@ -7,11 +7,13 @@
         <template #form>
             <div class="sm:col-span-2">
                 <Label for="name">Projekt neve*</Label>
-                <InputField v-model="form.name" :error="form.errors.name" type="text" name="username" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.name" :error="form.errors.name" type="text" name="username"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div class="sm:col-span-2">
                 <Label for="description">Leírás *</Label>
-                <TextArea v-model="form.description" :error="form.errors.description" :placeholder="'Rövid leírás megadása'" :id="'description'"/>
+                <TextArea v-model="form.description" :error="form.errors.description" placeholder="Rövid leírás megadása" id="description"/>
             </div>
             <div class="sm:col-span-2">
                 <label for="role" class="block text-sm font-semibold leading-6 text-gray-900">Partner kiválasztása *</label>

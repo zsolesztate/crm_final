@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ProjectsIndex;
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Partner;
@@ -12,11 +14,11 @@ use Inertia\Response;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index (SearchRequest $request,ProjectsIndex $projectsIndex)
     {
-        return Inertia::render('Projects',[
-            'projects' => Project::with('partner')->get()
-        ]);
+        $projectsData = $projectsIndex($request->validated());
+
+        return Inertia::render('Projects', $projectsData);
     }
 
     public function create(): Response

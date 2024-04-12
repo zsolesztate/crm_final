@@ -13,27 +13,14 @@ class FetchAvailableContactsController extends Controller
         $endDate = $request->input('endDate');
 
         $query = Contact::query()
-            ->where(function ($query) use ($startDate, $endDate) {
-                $query->whereNotIn('id', function($query) use ($startDate, $endDate) {
-                    $query->select('contact_id')
-                        ->from('vacations')
-                        ->where('from_date', '<=', $endDate)
-                        ->where('to_date', '>=', $startDate);
-                });
-            });
-
-        $query->whereNotIn('id', function($query) {
-            $query->select('contact_id')
-                ->from('tasks');
-        });
-
-        $query->when($request->has('task'), function ($query) use ($request) {
-            return $query->orWhereIn('id', function ($subQuery) use ($request) {
-                $subQuery->select('contact_id')
-                    ->from('tasks')
-                    ->where('id', $request->input('task'));
-            });
-        });
+            ->where(fn($query) => $query
+                ->whereNotIn('id', fn($subQuery) => $subQuery
+                    ->select('contact_id')
+                    ->from('vacations')
+                    ->where('from_date', '<=', $endDate)
+                    ->where('to_date', '>=', $startDate)
+                )
+            );
 
         $availableContactsQuery = $query->get();
 

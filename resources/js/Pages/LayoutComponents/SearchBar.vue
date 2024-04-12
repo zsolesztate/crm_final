@@ -79,7 +79,7 @@ const startSearch = async (route) => {
 
     const searchText = searchData.value.text.trim();
     if (!searchText) {
-        deleteSearch()
+        deleteSearch(route)
     }
 
     searchTimeout = setTimeout(async() => {

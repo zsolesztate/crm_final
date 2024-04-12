@@ -6,7 +6,9 @@
         </template>
         <template v-slot:content>
                 <div v-if="userPermissions.can_create_partner" class="flex items-center justify-end">
-                    <Link href="partners/create" class="hover:text-indigo-300 no-underline hover:underline flex items-center space-x-2 text-green-500">
+                    <Link href="partners/create"
+                          class="hover:text-indigo-300 no-underline hover:underline flex items-center space-x-2 text-green-500"
+                    >
                         <span class="">Partner hozzáadása</span>
                        <PlusIcon />
                     </Link>
@@ -22,41 +24,39 @@
                     <template v-slot:tbody>
                         <tr  v-for="(partner) in partners" :key="partner.id">
                             <table-body>
-                                <template v-slot:default>
                                     {{ partner.name}}
-                                </template>
                             </table-body>
                             <table-body>
-                                <template v-slot:default>
                                     {{ partner.company_name}}
-                                </template>
                             </table-body>
                             <table-body>
-                                <template v-slot:default>
                                     {{ partner.email}}
-                                </template>
                             </table-body>
                             <table-body>
-                                <template v-slot:default>
-                                    <div v-if="partner.users.length > 0">
-                                        {{ partner.users[0].name }}
+                                <div v-if="partner.users.length > 0">
+                                    {{ partner.users[0].name }}
                                         <span v-if="partner.users.length > 1">
                                             és még {{ partner.users.length - 1 }} munkatárs
                                         </span>
-                                    </div>
-                                    <div v-else>
-                                        Nincs hozzárendelt munkatárs.
-                                    </div>
-                                </template>
+                                </div>
+                                <div v-else>
+                                    Nincs hozzárendelt munkatárs.
+                                </div>
                             </table-body>
                             <table-body>
                                 <template v-slot:link>
-                                    <Link v-if="userPermissions.can_edit_partner" :href="`/partners/${partner.id}/edit`" class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" as="button" aria-current="page">
+                                    <Link v-if="userPermissions.can_edit_partner" :href="`/partners/${partner.id}/edit`"
+                                          class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                          as="button" aria-current="page"
+                                    >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <EditIcon />
                                 </span>
                                     </Link>
-                                    <button v-if="userPermissions.can_delete_partner" @click="openDeletePartnerModal(partner.id)"  class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
+                                    <button v-if="userPermissions.can_delete_partner" @click="openDeletePartnerModal(partner.id)"
+                                            class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                            type="button"
+                                    >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <DeleteIcon />
                                 </span>

@@ -12,11 +12,13 @@
         <template #form>
             <div class="sm:col-span-2">
                 <Label for="name">Feladat neve*</Label>
-                <InputField v-model="form.name" :error="form.errors.name" type="text" name="username" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.name" :error="form.errors.name" type="text" name="username"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div class="sm:col-span-2">
                 <Label for="description">Leírás *</Label>
-                <TextArea v-model="form.description" :error="form.errors.description" :placeholder="'Rövid leírás megadása'" :id="'description'"/>
+                <TextArea v-model="form.description" :error="form.errors.description" placeholder="Rövid leírás megadása" id="description"/>
             </div>
             <div class="sm:col-span-2">
                 <Label for="coworkers">Munkatársak hozzáadása</Label>
@@ -59,11 +61,15 @@
             <div>
                 <Label for="contact">Állapot*</Label>
                 <div class="flex items-center mb-4 mt-4">
-                    <input v-model="form.status" id="default-radio-1" type="radio" :value="false" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input v-model="form.status" id="default-radio-1" type="radio" :value="false" name="default-radio"
+                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    >
                     <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Folyamatban</label>
                 </div>
                 <div class="flex items-center">
-                    <input v-model="form.status" id="default-radio-2" type="radio" :value="true" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input v-model="form.status" id="default-radio-2" type="radio" :value="true" name="default-radio"
+                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    >
                     <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kész</label>
                 </div>
             </div>

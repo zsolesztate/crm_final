@@ -4,12 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowUsersRequest extends FormRequest
+class SearchRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
             'search' => 'sometimes|required|string|min:3|max:150|regex:/^[a-zA-Z0-9\sáÁéÉíÍóÓöÖőŐúÚüÜűŰ.\-]*$/',
+            'user' => 'sometimes|required|integer',
+            'contact' => 'sometimes|required|integer',
         ];
     }
 

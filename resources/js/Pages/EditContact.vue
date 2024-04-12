@@ -7,23 +7,33 @@
         <template #form>
             <div>
                 <Label for="name">Név *</Label>
-                <InputField v-model="form.name" :error="form.errors.name" type="text" name="username" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.name" :error="form.errors.name" type="text" name="username"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div>
                 <Label for="email">Email cím *</Label>
-                <InputField v-model="form.email" :error="form.errors.email" type="email" name="email" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.email" :error="form.errors.email" type="email" name="email"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div>
                 <Label for="phone">Telefonszám *</Label>
-                <InputField v-model="form.phone" :error="form.errors.phone" type="text" name="phone" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.phone" :error="form.errors.phone" type="text" name="phone"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div>
                 <Label for="position">Beosztás *</Label>
-                <InputField v-model="form.position" :error="form.errors.position" type="text" name="phone" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.position" :error="form.errors.position" type="text" name="phone"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div class="sm:col-span-2">
                 <label for="role" class="block text-sm font-semibold leading-6 text-gray-900">Partner kiválasztása *</label>
-                <SimpleDropdown :options="partners" :error="form.errors.partner_id" @selected="handleSelectedPartner" :currentOption="SelectedPartner"/>
+                <SimpleDropdown :options="partners" :error="form.errors.partner_id" @selected="handleSelectedPartner"
+                                :currentOption="SelectedPartner"
+                />
             </div>
             <div class="flex gap-x-4 sm:col-span-2 z-30">
                 <SimpleCheckbox v-model="form.primary_contact"/>

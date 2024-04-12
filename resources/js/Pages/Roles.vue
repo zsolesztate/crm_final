@@ -19,18 +19,22 @@
                 <template v-slot:tbody>
                     <tr v-for="(role) in roles" :key="role.id">
                         <table-body>
-                            <template v-slot:default>
                                 {{ role.name }}
-                            </template>
                         </table-body>
                         <table-body>
                             <template v-slot:link>
-                                <Link v-if="userPermissions.can_edit_role" :href="`/roles/${role.id}/edit`"  class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" as="button" aria-current="page">
+                                <Link v-if="userPermissions.can_edit_role" :href="`/roles/${role.id}/edit`"
+                                      class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                      as="button" aria-current="page"
+                                >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <EditIcon />
                                 </span>
                                 </Link>
-                                <button v-if="userPermissions.can_delete_role" @click="openDeleteRoleModal(role.id)"  class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
+                                <button v-if="userPermissions.can_delete_role" @click="openDeleteRoleModal(role.id)"
+                                        class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                        type="button"
+                                >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <DeleteIcon />
                                 </span>

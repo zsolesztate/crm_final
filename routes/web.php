@@ -34,7 +34,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/contacts', ContactController::class);
 
-    Route::resource('/projects', ProjectController::class);
+    Route::resource('/projects', ProjectController::class)->except(['index','show']);
+
+    Route::get('/projects/{type?}', [ProjectController::class, 'index'])->name('projects.index');
+
+
 
     Route::resource('/tasks/{project}', TaskController::class)->except(['edit', 'update','show','destroy']);
 

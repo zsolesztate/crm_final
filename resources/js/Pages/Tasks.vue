@@ -11,11 +11,15 @@
         </template>
         <template v-slot:content>
             <div class="flex items-center justify-between">
-                <Link href="/projects/" class="hover:text-indigo-300 no-underline hover:underline mt-4 flex items-center space-x-2 text-blue-500">
+                <Link href="/projects/"
+                      class="hover:text-indigo-300 no-underline hover:underline mt-4 flex items-center space-x-2 text-blue-500"
+                >
                     <BackIcon />
                     <span class="">Vissza a projektekhez</span>
                 </Link>
-                <Link :href="`/tasks/${project.id}/create`" class="hover:text-indigo-300 no-underline hover:underline flex items-center space-x-2 text-green-500">
+                <Link :href="`/tasks/${project.id}/create`"
+                      class="hover:text-indigo-300 no-underline hover:underline flex items-center space-x-2 text-green-500"
+                >
                     <span class="">Feladat hozzáadása</span>
                     <PlusIcon />
                 </Link>
@@ -34,17 +38,12 @@
                 <template v-slot:tbody>
                     <tr v-for="task in tasks"  >
                         <table-body>
-                            <template v-slot:default>
                                 {{ task.name}}
-                            </template>
                         </table-body>
                         <table-body>
-                            <template v-slot:default>
                                 {{ shortText(task.description)}}
-                            </template>
                         </table-body>
                         <table-body>
-                            <template v-slot:default>
                                 <div v-if="task.users.length > 0">
                                     {{ task.users[0].name }}
                                     <span v-if="task.users.length > 1">
@@ -54,36 +53,38 @@
                                 <div v-else>
                                     Nincs hozzárendelt munkatárs.
                                 </div>
-                            </template>
                         </table-body>
                         <table-body>
-                            <template v-slot:default>
                                 {{ task.start_date}}
-                            </template>
                         </table-body>
                         <table-body>
-                            <template v-slot:default>
                                 {{ task.finnish_date}}
-                            </template>
                         </table-body>
                         <table-body>
-                            <template v-slot:default>
-                                {{ task.contact.name}}
-                            </template>
+                                <div v-if="task.contact">
+                                    {{ task.contact.name}}
+                                </div>
+                                <div v-else>
+                                    Törölt kapcsolattartó. Adjon meg újat.
+                                </div>
                         </table-body>
                         <table-body>
-                            <template v-slot:default>
                                 {{ statusName(task.status)}}
-                            </template>
                         </table-body>
                         <table-body>
                             <template v-slot:link>
-                                <Link :href="`/tasks/${task.id}/edit`" class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" as="button" aria-current="page">
+                                <Link :href="`/tasks/${task.id}/edit`"
+                                      class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                      as="button" aria-current="page"
+                                >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <EditIcon />
                                 </span>
                                 </Link>
-                                <button @click="openDeleteTaskModal(task.id)"  class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
+                                <button @click="openDeleteTaskModal(task.id)"
+                                        class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                        type="button"
+                                >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <DeleteIcon />
                                 </span>
