@@ -14,7 +14,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string','max:255'],
+            'name' => ['required','string','max:255','regex:/^[a-zA-Z0-9\sáÁéÉíÍóÓöÖőŐúÚüÜűŰ.\-]*$/'],
             'email' => ['required','email','unique:users','email','min:10','max:255'],
             'phone' => ['required', 'string', 'max:255', 'regex:/^[+\/\-\s\d]+$/'],
             'position' => ['required','string','max:255'],
@@ -29,6 +29,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name.required' => 'A név mező kitöltése kötelező.',
+            'name.regex' => 'A név csak betűket, számokat és ékezetes betűket tartalmazhat.',
             'name.max' => 'A név maximum :max karakter hosszú lehet.',
             'email.required' => 'Az email mező kitöltése kötelező.',
             'email.email' => 'Az email mező érvényes email címet kell tartalmazzon.',

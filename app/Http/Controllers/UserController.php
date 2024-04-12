@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ShowUsersRequest;
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -17,26 +17,23 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
 
-    public function index(ShowUsersRequest $request, $type = null)
+    public function index(SearchRequest $request, $type = null)
     {
-        Gate::authorize('Munkatársak megtekintése');
+        Gate::authorize('can_view_users');
 
         $validatedData = $request->validated();
         $searchText = $validatedData['search'] ?? null;
 
-        $query = User::query()->with('roles');
-
-        if($type === 'search'){
-            $query->where(function ($query) use ($searchText) {
-                $query->where('name', 'LIKE', "%$searchText%")
-                    ->orWhere('email', 'LIKE', "%$searchText%")
-                    ->orWhere('phone', 'LIKE', "%$searchText%")
-                    ->orWhere('position', 'LIKE', "%$searchText%");
-            });
-        }
-
-        $users = $query->get();
-
+        $users = User::query()
+            ->when($type === 'search',fn($query) => $query
+                ->where('name', 'LIKE', "%$searchText%")
+                ->orWhere('email', 'LIKE', "%$searchText%")
+                ->orWhere('phone', 'LIKE', "%$searchText%")
+                ->orWhere('position', 'LIKE', "%$searchText%")
+            )
+            ->with('roles')
+            ->get();
+        
         return Inertia::render('Users',[
             'users' => $users,
             'searchedText' => $searchText,
@@ -45,7 +42,7 @@ class UserController extends Controller
 
     public function create(): Response
     {
-        Gate::authorize('Munkatárs létrehozása');
+        Gate::authorize('can_create_user');
 
         return Inertia::render('CreateUser',[
             'roles' => Role::all()
@@ -54,7 +51,7 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request): RedirectResponse
     {
-        Gate::authorize('Munkatárs létrehozása');
+        Gate::authorize('can_create_user');
 
         $validatedData = $request->validated();
 
@@ -69,7 +66,7 @@ class UserController extends Controller
 
     public function edit(User $user): Response
     {
-        Gate::authorize('Munkatárs szerkesztése');
+        Gate::authorize('can_edit_user');
 
         return Inertia::render('EditUser', [
             'user' => $user->load('roles'),
@@ -79,7 +76,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request,User $user): RedirectResponse
     {
-        Gate::authorize('Munkatárs szerkesztése');
+        Gate::authorize('can_edit_user');
 
         $validatedData = $request->validated();
 
@@ -92,7 +89,7 @@ class UserController extends Controller
 
     public function userPasswordUpdate(UpdateUserPasswordRequest $request,User $user): RedirectResponse
     {
-        Gate::authorize('Munkatárs szerkesztése');
+        Gate::authorize('can_edit_user');
 
         $validatedData = $request->validated();
 
@@ -106,7 +103,7 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        Gate::authorize('Munkatárs törlése');
+        Gate::authorize('can_delete_user');
 
         $user->delete();
 

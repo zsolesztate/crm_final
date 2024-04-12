@@ -50,18 +50,19 @@
             </svg>
         </div>
     </div>
+    <span v-if="errors && errors.search" class="text-red-500">{{ errors.search }}</span>
 </template>
 <script setup>
 import {ref,watchEffect} from "vue";
 import {router} from "@inertiajs/vue3";
 
-const {searchedText,route} = defineProps(['searchedText','route']);
-
+const {searchedText,route,errors = {}} = defineProps(['searchedText','route','errors']);
 
 const searchData = ref({
     text: '',
     error: '',
 });
+
 let searchTimeout = null;
 const loading = ref(false);
 
@@ -78,7 +79,7 @@ const startSearch = async (route) => {
 
     const searchText = searchData.value.text.trim();
     if (!searchText) {
-        deleteSearch()
+        deleteSearch(route)
     }
 
     searchTimeout = setTimeout(async() => {

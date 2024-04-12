@@ -7,15 +7,21 @@
         <template #form>
             <div>
                 <Label for="name">Megjelenítési Név *</Label>
-                <InputField v-model="form.name" :error="form.errors.name" type="text" name="name" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.name" :error="form.errors.name" type="text" name="name"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div>
                 <Label for="name">Cégnév *</Label>
-                <InputField v-model="form.company_name" :error="form.errors.company_name" type="text" name="company" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.company_name" :error="form.errors.company_name" type="text" name="company"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div class="sm:col-span-2">
                 <Label for="password">Email cím *</Label>
-                <InputField v-model="form.email" :error="form.errors.email" type="email" name="email" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="form.email" :error="form.errors.email" type="email" name="email"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div class="sm:col-span-2">
                 <Label for="coworkers">Munkatársak hozzáadása</Label>

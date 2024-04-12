@@ -7,19 +7,27 @@
         <template #form>
             <div>
                 <Label for="name">Név *</Label>
-                <InputField v-model="basicInfoForm.name" :error="basicInfoForm.errors.name" type="text" name="username" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="basicInfoForm.name" :error="basicInfoForm.errors.name" type="text" name="username"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div>
                 <Label for="email">Email cím *</Label>
-                <InputField v-model="basicInfoForm.email" :error="basicInfoForm.errors.email" type="text" name="email" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="basicInfoForm.email" :error="basicInfoForm.errors.email" type="text" name="email"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div>
                 <Label for="phone">Telefonszám *</Label>
-                <InputField v-model="basicInfoForm.phone" :error="basicInfoForm.errors.phone" type="text" name="phone" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="basicInfoForm.phone" :error="basicInfoForm.errors.phone" type="text" name="phone"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div>
                 <Label for="position">Beosztás *</Label>
-                <InputField v-model="basicInfoForm.position" :error="basicInfoForm.errors.position" type="text" name="phone" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="basicInfoForm.position" :error="basicInfoForm.errors.position" type="text" name="phone"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div class="sm:col-span-2">
                 <label for="role" class="block text-sm font-semibold leading-6 text-gray-900">Csoport kiválasztása *</label>
@@ -44,11 +52,15 @@
         <template #form>
             <div class="sm:col-span-2">
                 <Label for="position">Új Jelszó</Label>
-                <InputField v-model="passwordForm.password" :error="passwordForm.errors.password" type="password" name="password" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="passwordForm.password" :error="passwordForm.errors.password" type="password" name="password"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
             <div class="sm:col-span-2">
                 <label for="role" class="block text-sm font-semibold leading-6 text-gray-900">Jelsző megerősítése</label>
-                <InputField v-model="passwordForm.confirmPassword" :error="passwordForm.errors.confirmPassword" type="password" name="confirmPassword" customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <InputField v-model="passwordForm.confirmPassword" :error="passwordForm.errors.confirmPassword" type="password" name="confirmPassword"
+                            customClass="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
             </div>
         </template>
         <template #actions>

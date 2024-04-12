@@ -5,9 +5,10 @@
             Munkatársak kezelése
         </template>
         <template v-slot:content>
-                    <SearchBar :searchedText="searchedText" :route="'users'"/>
-                <div v-if="userPermissions.can_create_users" class="flex items-center justify-end">
-                    <Link href="/users/create" class="hover:text-indigo-300 no-underline hover:underline mt-4 flex items-center space-x-2 text-green-500">
+                    <SearchBar :searchedText="searchedText" :route="'users'" :errors="errors"/>
+                <div v-if="userPermissions.can_create_user" class="flex items-center justify-end">
+                    <Link href="/users/create"
+                          class="hover:text-indigo-300 no-underline hover:underline mt-4 flex items-center space-x-2 text-green-500">
                         <span class="">Munkatárs hozzáadása</span>
                         <PlusIcon />
                     </Link>
@@ -25,43 +26,36 @@
                     <template v-slot:tbody v-if="users.length > 0">
                         <tr v-for="(user) in users" :key="user.id">
                             <table-body>
-                                <template v-slot:default>
                                     {{ user.name}}
-                                </template>
                             </table-body>
                             <table-body>
-                                <template v-slot:default>
                                     {{ user.email}}
-                                </template>
                             </table-body>
                             <table-body>
-                                <template v-slot:default>
                                     {{ isActive(user.active_status)}}
-                                </template>
                             </table-body>
                             <table-body>
-                                <template v-slot:default>
                                     {{ canModify(user.can_modify)}}
-                                </template>
                             </table-body>
                             <table-body>
-                                <template v-slot:default>
                                     {{ user.last_login_at ? user.last_login_at : 'Nincs adat.'}}
-                                </template>
                             </table-body>
                             <table-body>
-                                <template v-slot:default>
                                     {{ user.roles[0].name}}
-                                </template>
                             </table-body>
                             <table-body>
                                 <template v-slot:link>
-                                    <Link v-if="userPermissions.can_edit_users" :href="`/users/${user.id}/edit`" class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" as="button" aria-current="page">
+                                    <Link v-if="userPermissions.can_edit_user"
+                                          :href="`/users/${user.id}/edit`"
+                                          class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
+                                          as="button" aria-current="page"
+                                    >
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <EditIcon />
                                 </span>
                                     </Link>
-                                    <button v-if="userPermissions.can_delete_users" @click="openDeleteUserModal(user.id)"  class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
+                                    <button v-if="userPermissions.can_delete_user" @click="openDeleteUserModal(user.id)"
+                                            class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30" type="button">
                                 <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
                                     <DeleteIcon />
                                 </span>
@@ -96,7 +90,7 @@ import { defineProps,ref } from 'vue';
 
 const { EditIcon, DeleteIcon,PlusIcon } = Icons
 const {TableSkeleton,TableHead,TableBody } = Table
-const {users,userPermissions,searchedText} = defineProps(['users','userPermissions','searchedText']);
+const {users,userPermissions,searchedText,errors} = defineProps(['users','userPermissions','searchedText','errors']);
 
 const isActive = (activeStatus) => {
     return activeStatus ? 'Aktív' : 'Inaktív';
